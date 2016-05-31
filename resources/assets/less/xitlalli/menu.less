@@ -1,0 +1,182 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.contenedor{
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+}
+.menu-contenedor{
+    display: table-cell;
+    width: @menu-ancho-max;
+    vertical-align: top;
+    background-color: @verde;
+    box-sizing: border-box;
+    .menu-titulo{
+        width: 100%;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.2);
+        text-align: center;
+        .menu-boton{
+            float: right;
+            margin: 20px 13px;
+            border: 3px solid @aclarar;
+            border-radius: 6px;
+            background-color: transparent;
+            width: 32px;
+            height: 30px;
+            color: @aclarar;
+            display: inline-block;
+        }
+        p{
+            color: @aclarar;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 35px;
+        }
+    }
+}
+.menu-contenedor.menu-cerrado{
+    width: @menu-ancho-min!important;
+    .menu-titulo p{
+        display: none;
+    }
+    .menu-navegacion{
+        li a:hover{
+            background-color: @verde;
+        	width:@menu-ancho-max;
+            span{
+                display: inline-block!important;
+            }
+        }
+        li a span{
+           display: none;
+       }
+    }
+}
+.menu-contenedor.menu-abierto{
+    width: @menu-ancho-max!important;
+    .menu-titulo p{
+        display: inline-block!important;
+    }
+    .menu-navegacion{
+        display: block!important;
+        li a span{
+        	display: inline-block!important;
+        }
+        li.sub-menu > a:before {
+        	font-family: 'Glyphicons Halflings';
+        	content: '\e258';
+        	display: inline-block;
+        	float: right;
+            margin-top: 2px;
+        	margin-right:15px;
+        	font-size: 12px;
+        	-webkit-transition: all 300ms ease-in-out;
+        	-moz-transition: all 300ms ease-in-out;
+        	-o-transition: all 300ms ease-in-out;
+        	transition: all 300ms ease-in-out;
+        }
+        li.sub-menu.abierto > a:before{
+        	-moz-transform: rotate(90deg);
+        	-o-transform: rotate(90deg);
+        	-webkit-transform: rotate(90deg);
+        	-ms-transform: rotate(90deg);
+        	transform: rotate(90deg);
+        }
+    }
+}
+.menu-navegacion{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 50px;
+    li{
+    	position: relative;
+    	margin: 0;
+    	font-size: 14px;
+        a{
+        	text-decoration: none;
+        	color: #EEE;
+        	position: relative;
+        	display: block;
+        	padding: 10px 0 10px 22px;
+        	transition: all 300ms ease-in-out;
+            border-bottom: 1px solid @aclarar;
+            i{
+            	top: 1px;
+            	display: inline-block;
+            	font-size: 15px;
+            	margin-right: 5px;
+            }
+        }
+        a:last-child{
+        	border-bottom: none!important;
+        }
+        a:hover{
+        	background: rgba(255, 255, 255, 0.1);
+        	color: #FFF;
+        }
+        ul{
+            display: none;
+        	list-style: none;
+        	margin: 0;
+        	padding: 0;
+            overflow: hidden;
+            display: none;
+        }
+        ul > li{
+        	position: relative;
+        	margin: 0;
+        	font-size: 14px;
+        	border-bottom: 1px solid @aclarar;
+            a{
+            	padding: 10px 0 10px 30px;
+            	background: rgba(0, 0, 0, 0.1);
+            	display:flex;
+            }
+        }
+    }
+}
+.contenido{
+    display: table-cell;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+@media only screen and (max-width : 768px) {
+    .menu-contenedor{
+        display: table-row;
+        width: 100%!important;
+        vertical-align: top;
+        height: 70px;
+        .menu-titulo p{
+            display: inline-block!important;
+        }
+    }
+    .menu-contenedor.menu-minimizado .menu-navegacion{
+        display: none;
+        margin: 0;
+        a span{
+            display: inline-block!important;
+        }
+    }
+}
+@media only screen and (max-width : 992px) {
+    .menu-contenedor{
+        width: @menu-ancho-min;
+        .menu-titulo p{
+            display: none;
+        }
+    }
+    .menu-contenedor.menu-cerrado .menu-navegacion{
+        display: block!important;
+        a span{
+            display: none;
+        }
+    }
+}

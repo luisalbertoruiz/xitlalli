@@ -13,6 +13,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.less('bootstrap/bootstrap.less');
+    mix.less('xitlalli/xitlalli.less');
 });
 elixir(function(mix) {
     mix.scriptsIn('resources/assets/js/bootstrap','public/js/bootstrap.js');
