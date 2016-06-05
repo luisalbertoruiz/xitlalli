@@ -1,5 +1,5 @@
 var elixir = require('laravel-elixir');
-
+elixir.config.sourcemaps = false;
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -20,7 +20,9 @@ elixir(function(mix) {
 
     mix.scripts('libraries/jquery.js')
        .scripts('libraries/sweetalert2.js')
-       .scripts('libraries/bootstrap.js');
+       .scripts('libraries/bootstrap.js')
+       .scripts('libraries/xitlalli.js')
+       .scripts('modules/prueba.js');
 
     mix.copy('resources/assets/fonts', 'public/fonts');
 });
