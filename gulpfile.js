@@ -12,12 +12,15 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('bootstrap/bootstrap.less');
-    mix.less('xitlalli/xitlalli.less');
-});
-elixir(function(mix) {
-    mix.scriptsIn('resources/assets/js/bootstrap','public/js/bootstrap.js');
-});
-elixir(function(mix) {
+    mix.less('bootstrap/bootstrap.less')
+       .less('xitlalli/xitlalli.less')
+       .less('font-awesome/font-awesome.less');
+
+    mix.styles('sweetalert2.css');
+
+    mix.scripts('libraries/jquery.js')
+       .scripts('libraries/sweetalert2.js')
+       .scripts('libraries/bootstrap.js');
+
     mix.copy('resources/assets/fonts', 'public/fonts');
 });
