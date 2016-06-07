@@ -1,0 +1,40 @@
+.panel {
+    border: none;
+    border-radius: 10px;
+    background-color: #2b2b36;
+}
+.panel-default {
+    .panel-heading {
+        background-color: #23232e;
+        height: 60px;
+        border: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        color: rgb(247, 247, 247);
+        .panel-title {
+            width: 50%;
+            font-size: 1.5em;
+            margin-top: 8px;
+            display: inline-block;
+            i {
+                color: rgb(199, 199, 199);
+            }
+        }
+        .panel-actions {
+            width: 50%;
+            float: right;
+            display: inline-block;
+        }
+    }
+    .panel-footer {
+        padding: 12px;
+        background-color: @verde-oscuro;
+        height: 70px;
+        border: none;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        .btn {
+            margin-left: 15px;
+        }
+    }
+}

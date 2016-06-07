@@ -6,7 +6,7 @@
         </button>
     </div>
     <ul class="menu-navegacion">
-        <li class="sub-menu">
+        <li>
             <a href="">
                 <i class="glyphicon glyphicon-user"></i>
                 <span>accordion</span>
@@ -26,16 +26,16 @@
                 </li>
             </ul>
         </li>
-        <li class="sub-menu">
+        <li>
             <a href="">
                 <i class="glyphicon glyphicon-user"></i>
-                <span>accordion</span>
+                <span>accordion 3</span>
             </a>
             <ul>
                 <li>
                     <a href="">
                         <i class="glyphicon glyphicon-user"></i>
-                        <span>accordion 1</span>
+                        <span>accordion 4</span>
                     </a>
                 </li>
             </ul>

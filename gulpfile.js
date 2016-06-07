@@ -16,7 +16,7 @@ elixir(function(mix) {
        .less('xitlalli/xitlalli.less')
        .less('font-awesome/font-awesome.less');
 
-    mix.styles('sweetalert2.css');
+    //mix.styles('sweetalert2.css');
 
     mix.scripts('libraries/jquery.js')
        .scripts('libraries/sweetalert2.js')
@@ -24,5 +24,5 @@ elixir(function(mix) {
        .scripts('libraries/xitlalli.js')
        .scripts('modules/prueba.js');
 
-    mix.copy('resources/assets/fonts', 'public/fonts');
+    //mix.copy('resources/assets/fonts', 'public/fonts');
 });

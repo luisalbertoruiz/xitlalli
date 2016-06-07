@@ -1,1 +1,1196 @@
-!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):e.Sweetalert2=t()}(this,function(){"use strict";function e(){if(void 0===arguments[0])return!1;var e=c({},r);switch(typeof arguments[0]){case"string":e.title=arguments[0],e.text=arguments[1]||"",e.type=arguments[2]||"";break;case"object":c(e,arguments[0]),e.extraParams=arguments[0].extraParams,"email"===e.input&&null===e.inputValidator&&(e.inputValidator=function(e){return new Promise(function(t,n){var o=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;o.test(e)?t():n("Invalid email address")})});break;default:return!1}M(e),N(),P(e.animation);var o=m();return new Promise(function(a){function r(e,t){for(var n=0;n<E.length;n++)if(e+=t,e===E.length?e=0:-1===e&&(e=E.length-1),E[e].offsetWidth||E[e].offsetHeight||E[e].getClientRects().length)return void E[e].focus()}function l(n){var o=n||window.event,i=o.keyCode||o.which;if(-1!==[9,13,32,27].indexOf(i)){for(var l=o.target||o.srcElement,c=-1,s=0;s<E.length;s++)if(l===E[s]){c=s;break}9===i?(o.shiftKey?r(c,-1):r(c,1),A(o)):13===i||32===i?-1===c&&fireClick(S,o):27===i&&e.allowEscapeKey===!0&&(t.closeModal(),a(void 0))}}e.timer&&(o.timeout=setTimeout(function(){t.closeModal(),a(void 0)},e.timer));var c=function(){switch(e.input){case"select":return g(o,i.select);case"radio":return o.querySelector("."+i.radio+" input:checked")||o.querySelector("."+i.radio+" input:first-child");case"checkbox":return o.querySelector("#"+i.checkbox);case"textarea":return g(o,i.textarea);default:return g(o,i.input)}},u=function(){var t=c();switch(e.input){case"checkbox":return t.checked?1:0;case"radio":return t.checked?t.value:null;default:return e.inputAutoTrim?t.value.trim():t.value}};e.input&&setTimeout(function(){y(c())},0);var p,m=function(n){e.preConfirm?e.preConfirm(n,e.extraParams).then(function(e){a(e||n),t.closeModal()}):(a(n),t.closeModal())},w=function(n){var r=n||window.event,l=r.target||r.srcElement,c=v(l,i.confirm),d=v(l,i.cancel),p=v(o,"visible");switch(r.type){case"mouseover":case"mouseup":case"focus":e.buttonsStyling&&(c?l.style.backgroundColor=s(e.confirmButtonColor,-.1):d&&(l.style.backgroundColor=s(e.cancelButtonColor,-.1)));break;case"mouseout":case"blur":e.buttonsStyling&&(c?l.style.backgroundColor=e.confirmButtonColor:d&&(l.style.backgroundColor=e.cancelButtonColor));break;case"mousedown":e.buttonsStyling&&(c?l.style.backgroundColor=s(e.confirmButtonColor,-.2):d&&(l.style.backgroundColor=s(e.cancelButtonColor,-.2)));break;case"click":if(c&&p)if(e.input){var f=u();e.inputValidator?(t.disableInput(),e.inputValidator(f,e.extraParams).then(function(){t.enableInput(),m(f)},function(e){t.enableInput(),t.showValidationError(e)})):m(f)}else m(!0);else d&&p&&(t.closeModal(),a(!1))}},k=o.querySelectorAll("button");for(p=0;p<k.length;p++)k[p].onclick=w,k[p].onmouseover=w,k[p].onmouseout=w,k[p].onmousedown=w;d.previousDocumentClick=document.onclick,document.onclick=function(n){var o=n||window.event,r=o.target||o.srcElement;(v(r,i.close)||r===f()&&e.allowOutsideClick)&&(t.closeModal(),a(void 0))};var S=o.querySelector("button."+i.confirm),B=o.querySelector("button."+i.cancel),E=[S,B].concat(Array.prototype.slice.call(o.querySelectorAll("button:not([class^="+n+"]), input:not([type=hidden]), textarea, select")));for(p=0;p<E.length;p++)E[p].onfocus=w,E[p].onblur=w;e.reverseButtons&&S.parentNode.insertBefore(B,S),r(-1,1),d.previousWindowKeyDown=window.onkeydown,window.onkeydown=l,e.buttonsStyling&&(S.style.borderLeftColor=e.confirmButtonColor,S.style.borderRightColor=e.confirmButtonColor),t.enableLoading=function(){h(S,"loading"),h(o,"loading"),B.disabled=!0},t.disableLoading=function(){b(S,"loading"),b(o,"loading"),B.disabled=!1},t.enableButtons=function(){S.disabled=!1,B.disabled=!1},t.disableButtons=function(){S.disabled=!0,B.disabled=!0},t.enableInput=function(){var e=c();if("radio"===e.type)for(var t=e.parentNode.parentNode,n=t.querySelectorAll("input"),o=0;o<n.length;o++)n[o].disabled=!1;else e.disabled=!1},t.disableInput=function(){var e=c();if("radio"===e.type)for(var t=e.parentNode.parentNode,n=t.querySelectorAll("input"),o=0;o<n.length;o++)n[o].disabled=!0;else e.disabled=!0},t.showValidationError=function(e){var t=o.querySelector("."+i.validationerror);t.innerHTML=e,C(t);var n=c();y(n),h(n,"error")},t.resetValidationError=function(){var e=o.querySelector("."+i.validationerror);x(e);var t=c();b(t,"error")},t.enableButtons(),t.disableLoading(),t.resetValidationError()})}function t(){var n=arguments,o=m();return null===o&&(t.init(),o=m()),v(o,"visible")&&L(),e.apply(this,n)}var n="swal2-",o=function(e){var t={};for(var o in e)t[e[o]]=n+e[o];return t},i=o(["container","modal","overlay","close","content","spacer","confirm","cancel","icon","image","input","select","radio","checkbox","textarea","validationerror"]),a=o(["success","warning","info","question","error"]),r={title:"",text:"",html:"",type:null,animation:!0,allowOutsideClick:!0,allowEscapeKey:!0,showConfirmButton:!0,showCancelButton:!1,preConfirm:null,confirmButtonText:"OK",confirmButtonColor:"#3085d6",confirmButtonClass:null,cancelButtonText:"Cancel",cancelButtonColor:"#aaa",cancelButtonClass:null,buttonsStyling:!0,reverseButtons:!1,showCloseButton:!1,imageUrl:null,imageWidth:null,imageHeight:null,imageClass:null,timer:null,width:500,padding:20,background:"#fff",input:null,inputPlaceholder:"",inputValue:"",inputOptions:{},inputAutoTrim:!0,inputClass:null,inputAttributes:{},inputValidator:null},l='<div class="'+i.overlay+'" tabIndex="-1"></div><div class="'+i.modal+'" style="display: none" tabIndex="-1"><div class="'+i.icon+" "+a.error+'"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="'+i.icon+" "+a.question+'">?</div><div class="'+i.icon+" "+a.warning+'">!</div><div class="'+i.icon+" "+a.info+'">i</div><div class="'+i.icon+" "+a.success+'"><span class="line tip"></span> <span class="line long"></span><div class="placeholder"></div> <div class="fix"></div></div><img class="'+i.image+'"><h2></h2><div class="'+i.content+'"></div><input class="'+i.input+'"><select class="'+i.select+'"></select><div class="'+i.radio+'"></div><label for="'+i.checkbox+'" class="'+i.checkbox+'"><input type="checkbox" id="'+i.checkbox+'"></label><textarea class="'+i.textarea+'"></textarea><div class="'+i.validationerror+'"></div><hr class="'+i.spacer+'"><button class="'+i.confirm+'">OK</button><button class="'+i.cancel+'">Cancel</button><span class="'+i.close+'">&times;</span></div>',c=function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);return e},s=function(e,t){e=String(e).replace(/[^0-9a-f]/gi,""),e.length<6&&(e=e[0]+e[0]+e[1]+e[1]+e[2]+e[2]),t=t||0;for(var n="#",o=0;3>o;o++){var i=parseInt(e.substr(2*o,2),16);i=Math.round(Math.min(Math.max(0,i+i*t),255)).toString(16),n+=("00"+i).substr(i.length)}return n},u=n+"mediaquery",d={previousDocumentClick:null,previousWindowKeyDown:null,previousActiveElement:null},p=function(e){return document.querySelector("."+e)},m=function(){return p(i.modal)},f=function(){return p(i.overlay)},v=function(e,t){return new RegExp(" "+t+" ").test(" "+e.className+" ")},y=function(e){e.focus();var t=e.value;e.value="",e.value=t},h=function(e,t){t&&!v(e,t)&&(e.className+=" "+t)},b=function(e,t){var n=" "+e.className.replace(/[\t\r\n]/g," ")+" ";if(v(e,t)){for(;n.indexOf(" "+t+" ")>=0;)n=n.replace(" "+t+" "," ");e.className=n.replace(/^\s+|\s+$/g,"")}},g=function(e,t){for(var n=0;n<e.childNodes.length;n++)if(e.childNodes[n].classList.contains(t))return e.childNodes[n]},w=function(e){e.style.opacity="",e.style.display="block"},C=function(e){if(e&&!e.length)return w(e);for(var t=0;t<e.length;++t)w(e[t])},k=function(e){e.style.opacity="",e.style.display="none"},x=function(e){if(e&&!e.length)return k(e);for(var t=0;t<e.length;++t)k(e[t])},S=function(e,t){e.style.removeProperty?e.style.removeProperty(t):e.style.removeAttribute(t)},B=function(e){e.style.left="-9999px",e.style.display="block";var t=e.clientHeight,n=parseInt(getComputedStyle(e).getPropertyValue("padding-top"),10);return e.style.left="",e.style.display="none","-"+parseInt(t/2+n,10)+"px"},E=function(e,t){if(+e.style.opacity<1){t=t||16,e.style.opacity=0,e.style.display="block";var n=+new Date,o=function(){var i=+e.style.opacity+(new Date-n)/100;e.style.opacity=i>1?1:i,n=+new Date,+e.style.opacity<1&&setTimeout(o,t)};o()}},q=function(e,t){if(+e.style.opacity>0){t=t||16;var n=e.style.opacity,o=+new Date,i=function(){var a=new Date-o,r=+e.style.opacity-a/(100*n);e.style.opacity=r,o=+new Date,+e.style.opacity>0?setTimeout(i,t):k(e)};i()}},A=function(e){"function"==typeof e.stopPropagation?(e.stopPropagation(),e.preventDefault()):window.event&&window.event.hasOwnProperty("cancelBubble")&&(window.event.cancelBubble=!0)},T=function(){var e=document.createElement("div"),t={WebkitAnimation:"webkitAnimationEnd",MozAnimation:"animationend",OAnimation:"oAnimationEnd oanimationend",msAnimation:"MSAnimationEnd",animation:"animationend"};for(var n in t)if(t.hasOwnProperty(n)&&void 0!==e.style[n])return t[n];return!1}(),L=function(){var e=m();window.onkeydown=d.previousWindowKeyDown,document.onclick=d.previousDocumentClick,d.previousActiveElement&&d.previousActiveElement.focus(),clearTimeout(e.timeout);var t=document.getElementsByTagName("head")[0],n=document.getElementById(u);n&&t.removeChild(n)},M=function(e){var t,n=m();n.style.width=e.width+"px",n.style.padding=e.padding+"px",n.style.marginLeft=-e.width/2+"px",n.style.background=e.background;var o=document.getElementsByTagName("head")[0],r=document.createElement("style");r.type="text/css",r.id=u;var l=5,c=e.width+parseInt(e.width*(l/100)*2,10);r.innerHTML="@media screen and (max-width: "+c+"px) {."+i.modal+" {width: auto !important;left: "+l+"% !important;right: "+l+"% !important;margin-left: 0 !important;}}",o.appendChild(r);var s=n.querySelector("h2"),d=n.querySelector("."+i.content),p=n.querySelector("button."+i.confirm),f=n.querySelector("button."+i.cancel),v=n.querySelector("."+i.spacer),y=n.querySelector("."+i.close);if(s.innerHTML=e.title.split("\n").join("<br>"),e.text||e.html){if("object"==typeof e.html)if(d.innerHTML="",0 in e.html)for(t=0;t in e.html;t++)d.appendChild(e.html[t]);else d.appendChild(e.html);else d.innerHTML=e.html||e.text.split("\n").join("<br>");C(d)}else x(d);if(e.showCloseButton?C(y):x(y),n.className=i.modal,e.customClass&&h(n,e.customClass),x(n.querySelectorAll("."+i.icon)),e.type){var B=!1;for(var E in a)if(e.type===E){B=!0;break}if(!B)return!1;var q=n.querySelector("."+i.icon+"."+a[e.type]);switch(C(q),e.type){case"success":h(q,"animate"),h(q.querySelector(".tip"),"animate-success-tip"),h(q.querySelector(".long"),"animate-success-long");break;case"error":h(q,"animate-error-icon"),h(q.querySelector(".x-mark"),"animate-x-mark");break;case"warning":h(q,"pulse-warning")}}var A=n.querySelector("."+i.image);e.imageUrl?(A.setAttribute("src",e.imageUrl),C(A),e.imageWidth&&A.setAttribute("width",e.imageWidth),e.imageHeight&&A.setAttribute("height",e.imageHeight),e.imageClass&&h(A,e.imageClass)):x(A);var T,L=["input","select","radio","checkbox","textarea"];for(t=0;t<L.length;t++){var M=i[L[t]];for(T=g(n,M);T.attributes.length>0;)T.removeAttribute(T.attributes[0].name);for(var P in e.inputAttributes)T.setAttribute(P,e.inputAttributes[P]);T.className=M,e.inputClass&&h(T,e.inputClass),k(T)}switch(e.input){case"text":case"email":case"password":T=g(n,i.input),T.value=e.inputValue,T.placeholder=e.inputPlaceholder,T.type=e.input,w(T);break;case"select":var N=g(n,i.select);if(N.innerHTML="",e.inputPlaceholder){var V=document.createElement("option");V.innerHTML=e.inputPlaceholder,V.value="",V.disabled=!0,V.selected=!0,N.appendChild(V)}for(var H in e.inputOptions){var O=document.createElement("option");O.value=H,O.innerHTML=e.inputOptions[H],e.inputValue===H&&(O.selected=!0),N.appendChild(O)}w(N);break;case"radio":var D=g(n,i.radio);D.innerHTML="";for(var I in e.inputOptions){var K=1,W=document.createElement("input"),j=document.createElement("label"),R=document.createElement("span");W.type="radio",W.name=i.radio,W.value=I,W.id=i.radio+"-"+K++,e.inputValue===I&&(W.checked=!0),R.innerHTML=e.inputOptions[I],j.appendChild(W),j.appendChild(R),j["for"]=W.id,D.appendChild(j)}w(D);break;case"checkbox":var z=g(n,i.checkbox),U=n.querySelector("#"+i.checkbox);U.value=1,U.checked=Boolean(e.inputValue);var Z=z.getElementsByTagName("span");Z.length&&z.removeChild(Z[0]),Z=document.createElement("span"),Z.innerHTML=e.inputPlaceholder,z.appendChild(Z),w(z);break;case"textarea":var $=g(n,i.textarea);$.value=e.inputValue,$.placeholder=e.inputPlaceholder,w($);break;case null:}e.showCancelButton?f.style.display="inline-block":x(f),e.showConfirmButton?S(p,"display"):x(p),e.showConfirmButton||e.showCancelButton?C(v):x(v),p.innerHTML=e.confirmButtonText,f.innerHTML=e.cancelButtonText,e.buttonsStyling&&(p.style.backgroundColor=e.confirmButtonColor,f.style.backgroundColor=e.cancelButtonColor),p.className=i.confirm,h(p,e.confirmButtonClass),f.className=i.cancel,h(f,e.cancelButtonClass),e.buttonsStyling?(h(p,"styled"),h(f,"styled")):(b(p,"styled"),b(f,"styled"),p.style.backgroundColor=p.style.borderLeftColor=p.style.borderRightColor="",f.style.backgroundColor=f.style.borderLeftColor=f.style.borderRightColor=""),e.animation===!0?b(n,"no-animation"):h(n,"no-animation")},P=function(e){var t=m();e?(E(f(),10),h(t,"show-swal2"),b(t,"hide-swal2")):C(f()),C(t),d.previousActiveElement=document.activeElement,h(t,"visible")},N=function(){var e=m();e.style.marginTop=B(m())};return t.close=t.closeModal=function(){var e=m();b(e,"show-swal2"),h(e,"hide-swal2"),b(e,"visible");var t=e.querySelector("."+i.icon+"."+a.success);b(t,"animate"),b(t.querySelector(".tip"),"animate-success-tip"),b(t.querySelector(".long"),"animate-success-long");var n=e.querySelector("."+i.icon+"."+a.error);b(n,"animate-error-icon"),b(n.querySelector(".x-mark"),"animate-x-mark");var o=e.querySelector("."+i.icon+"."+a.warning);b(o,"pulse-warning"),L(),T&&!v(e,"no-animation")?e.addEventListener(T,function r(){e.removeEventListener(T,r),v(e,"hide-swal2")&&(k(e),q(f(),0))}):(k(e),k(f()))},t.clickConfirm=function(){var e=m(),t=e.querySelector("button."+i.confirm);t.click()},t.clickCancel=function(){var e=m(),t=e.querySelector("button."+i.cancel);t.click()},t.init=function(){if("undefined"!=typeof document&&!document.getElementsByClassName(i.container).length){var e=document.createElement("div");e.className=i.container,e.innerHTML=l,document.body.appendChild(e);var n=m(),o=g(n,i.input),a=g(n,i.select),r=n.querySelector("#"+i.checkbox),c=g(n,i.textarea);o.oninput=function(){t.resetValidationError()},o.onkeyup=function(e){e.stopPropagation(),13===e.keyCode&&t.clickConfirm()},a.onchange=function(){t.resetValidationError()},r.onchange=function(){t.resetValidationError()},c.onchange=function(){t.resetValidationError()}}},t.setDefaults=function(e){if(!e)throw new Error("userParams is required");if("object"!=typeof e)throw new Error("userParams has to be a object");c(r,e)},t.version="3.2.3",window.sweetAlert=window.swal=t,function(){"complete"===document.readyState||"interactive"===document.readyState&&document.body?t.init():document.addEventListener("DOMContentLoaded",function e(){document.removeEventListener("DOMContentLoaded",e,!1),t.init()},!1)}(),t});
+/*!
+ * sweetalert2 v3.2.3
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.Sweetalert2 = factory());
+}(this, function () { 'use strict';
+
+  var swalPrefix = 'swal2-';
+
+  var prefix = function(items) {
+    var result = {};
+    for (var i in items) {
+      result[items[i]] = swalPrefix + items[i];
+    }
+    return result;
+  };
+
+  var swalClasses = prefix([
+    'container',
+    'modal',
+    'overlay',
+    'close',
+    'content',
+    'spacer',
+    'confirm',
+    'cancel',
+    'icon',
+    'image',
+    'input',
+    'select',
+    'radio',
+    'checkbox',
+    'textarea',
+    'validationerror'
+  ]);
+
+  var iconTypes = prefix([
+    'success',
+    'warning',
+    'info',
+    'question',
+    'error'
+  ]);
+
+  var defaultParams = {
+    title: '',
+    text: '',
+    html: '',
+    type: null,
+    animation: true,
+    allowOutsideClick: true,
+    allowEscapeKey: true,
+    showConfirmButton: true,
+    showCancelButton: false,
+    preConfirm: null,
+    confirmButtonText: 'OK',
+    confirmButtonColor: '#3085d6',
+    confirmButtonClass: null,
+    cancelButtonText: 'Cancel',
+    cancelButtonColor: '#aaa',
+    cancelButtonClass: null,
+    buttonsStyling: true,
+    reverseButtons: false,
+    showCloseButton: false,
+    imageUrl: null,
+    imageWidth: null,
+    imageHeight: null,
+    imageClass: null,
+    timer: null,
+    width: 500,
+    padding: 20,
+    background: '#fff',
+    input: null, // 'text' | 'email' | 'password' | 'select' | 'radio' | 'checkbox' | 'textarea'
+    inputPlaceholder: '',
+    inputValue: '',
+    inputOptions: {},
+    inputAutoTrim: true,
+    inputClass: null,
+    inputAttributes: {},
+    inputValidator: null
+  };
+
+  var sweetHTML = '<div class="' + swalClasses.overlay + '" tabIndex="-1"></div>' +
+    '<div class="' + swalClasses.modal + '" style="display: none" tabIndex="-1">' +
+      '<div class="' + swalClasses.icon + ' ' + iconTypes.error + '">' +
+        '<span class="x-mark"><span class="line left"></span><span class="line right"></span></span>' +
+      '</div>' +
+      '<div class="' + swalClasses.icon + ' ' + iconTypes.question + '">?</div>' +
+      '<div class="' + swalClasses.icon + ' ' + iconTypes.warning + '">!</div>' +
+      '<div class="' + swalClasses.icon + ' ' + iconTypes.info + '">i</div>' +
+      '<div class="' + swalClasses.icon + ' ' + iconTypes.success + '">' +
+        '<span class="line tip"></span> <span class="line long"></span>' +
+        '<div class="placeholder"></div> <div class="fix"></div>' +
+      '</div>' +
+      '<img class="' + swalClasses.image + '">' +
+      '<h2></h2>' +
+      '<div class="' + swalClasses.content + '"></div>' +
+      '<input class="' + swalClasses.input + '">' +
+      '<select class="' + swalClasses.select + '"></select>' +
+      '<div class="' + swalClasses.radio + '"></div>' +
+      '<label for="' + swalClasses.checkbox + '" class="' + swalClasses.checkbox + '">' +
+        '<input type="checkbox" id="' + swalClasses.checkbox + '">' +
+      '</label>' +
+      '<textarea class="' + swalClasses.textarea + '"></textarea>' +
+      '<div class="' + swalClasses.validationerror + '"></div>' +
+      '<hr class="' + swalClasses.spacer + '">' +
+      '<button class="' + swalClasses.confirm + '">OK</button>' +
+      '<button class="' + swalClasses.cancel + '">Cancel</button>' +
+      '<span class="' + swalClasses.close + '">&times;</span>' +
+    '</div>';
+
+  var extend = function(a, b) {
+    for (var key in b) {
+      if (b.hasOwnProperty(key)) {
+        a[key] = b[key];
+      }
+    }
+
+    return a;
+  };
+
+
+  /*
+   * Set hover, active and focus-states for buttons (source: http://www.sitepoint.com/javascript-generate-lighter-darker-color)
+   */
+  var colorLuminance = function(hex, lum) {
+    // Validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    lum = lum || 0;
+
+    // Convert to decimal and change luminosity
+    var rgb = '#';
+    for (var i = 0; i < 3; i++) {
+      var c = parseInt(hex.substr(i * 2, 2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ('00' + c).substr(c.length);
+    }
+
+    return rgb;
+  };
+
+  var mediaqueryId = swalPrefix + 'mediaquery';
+
+  // Remember state in cases where opening and handling a modal will fiddle with it.
+  var states = {
+      previousDocumentClick: null,
+      previousWindowKeyDown: null,
+      previousActiveElement: null
+  };
+
+  /*
+   * Manipulate DOM
+   */
+  var elementByClass = function(className) {
+    return document.querySelector('.' + className);
+  };
+
+  var getModal = function() {
+    return elementByClass(swalClasses.modal);
+  };
+
+  var getOverlay = function() {
+    return elementByClass(swalClasses.overlay);
+  };
+
+  var hasClass = function(elem, className) {
+    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+  };
+
+  var focusInput = function(input) {
+    input.focus();
+
+    // http://stackoverflow.com/a/2345915/1331425
+    var val = input.value;
+    input.value = '';
+    input.value = val;
+  };
+
+  var addClass = function(elem, className) {
+    if (className && !hasClass(elem, className)) {
+      elem.className += ' ' + className;
+    }
+  };
+
+  var removeClass = function(elem, className) {
+    var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+    if (hasClass(elem, className)) {
+      while (newClass.indexOf(' ' + className + ' ') >= 0) {
+        newClass = newClass.replace(' ' + className + ' ', ' ');
+      }
+      elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+  };
+
+  var getChildByClass = function(elem, className) {
+    for (var i = 0; i < elem.childNodes.length; i++) {
+      if (elem.childNodes[i].classList.contains(className)) {
+        return elem.childNodes[i];
+      }
+    }
+  };
+
+  var _show = function(elem) {
+    elem.style.opacity = '';
+    elem.style.display = 'block';
+  };
+
+  var show = function(elems) {
+    if (elems && !elems.length) {
+      return _show(elems);
+    }
+    for (var i = 0; i < elems.length; ++i) {
+      _show(elems[i]);
+    }
+  };
+
+  var _hide = function(elem) {
+    elem.style.opacity = '';
+    elem.style.display = 'none';
+  };
+
+  var hide = function(elems) {
+    if (elems && !elems.length) {
+      return _hide(elems);
+    }
+    for (var i = 0; i < elems.length; ++i) {
+      _hide(elems[i]);
+    }
+  };
+
+  var removeStyleProperty = function(elem, property) {
+    if (elem.style.removeProperty) {
+      elem.style.removeProperty(property);
+    } else {
+      elem.style.removeAttribute(property);
+    }
+  };
+
+  var getTopMargin = function(elem) {
+    elem.style.left = '-9999px';
+    elem.style.display = 'block';
+
+    var height = elem.clientHeight;
+    var paddingTop = parseInt(getComputedStyle(elem).getPropertyValue('padding-top'), 10);
+
+    elem.style.left = '';
+    elem.style.display = 'none';
+    return ('-' + parseInt(height / 2 + paddingTop, 10) + 'px');
+  };
+
+  var fadeIn = function(elem, interval) {
+    if (+elem.style.opacity < 1) {
+      interval = interval || 16;
+      elem.style.opacity = 0;
+      elem.style.display = 'block';
+      var last = +new Date();
+      var tick = function() {
+        var newOpacity = +elem.style.opacity + (new Date() - last) / 100;
+        elem.style.opacity = (newOpacity > 1) ? 1 : newOpacity;
+        last = +new Date();
+
+        if (+elem.style.opacity < 1) {
+          setTimeout(tick, interval);
+        }
+      };
+      tick();
+    }
+  };
+
+  var fadeOut = function(elem, interval) {
+    if (+elem.style.opacity > 0) {
+      interval = interval || 16;
+      var opacity = elem.style.opacity;
+      var last = +new Date();
+      var tick = function() {
+        var change = new Date() - last;
+        var newOpacity = +elem.style.opacity - change / (opacity * 100);
+        elem.style.opacity = newOpacity;
+        last = +new Date();
+
+        if (+elem.style.opacity > 0) {
+          setTimeout(tick, interval);
+        } else {
+          _hide(elem);
+        }
+      };
+      tick();
+    }
+  };
+
+  var stopEventPropagation = function(e) {
+    // In particular, make sure the space bar doesn't scroll the main window.
+    if (typeof e.stopPropagation === 'function') {
+      e.stopPropagation();
+      e.preventDefault();
+    } else if (window.event && window.event.hasOwnProperty('cancelBubble')) {
+      window.event.cancelBubble = true;
+    }
+  };
+
+  var animationEndEvent = (function() {
+    var testEl = document.createElement('div'),
+      transEndEventNames = {
+        'WebkitAnimation': 'webkitAnimationEnd',
+        'MozAnimation': 'animationend',
+        'OAnimation': 'oAnimationEnd oanimationend',
+        'msAnimation': 'MSAnimationEnd',
+        'animation': 'animationend'
+      };
+    for (var i in transEndEventNames) {
+      if (transEndEventNames.hasOwnProperty(i) &&
+        testEl.style[i] !== undefined) {
+        return transEndEventNames[i];
+      }
+    }
+
+    return false;
+  })();
+
+
+  // Reset the page to its previous state
+  var resetPrevState = function() {
+    var modal = getModal();
+    window.onkeydown = states.previousWindowKeyDown;
+    document.onclick = states.previousDocumentClick;
+    if (states.previousActiveElement) {
+      states.previousActiveElement.focus();
+    }
+    clearTimeout(modal.timeout);
+
+    // Remove dynamically created media query
+    var head = document.getElementsByTagName('head')[0];
+    var mediaquery = document.getElementById(mediaqueryId);
+    if (mediaquery) {
+      head.removeChild(mediaquery);
+    }
+  };
+
+  /*
+   * Set type, text and actions on modal
+   */
+  var setParameters = function(params) {
+    var i;
+    var modal = getModal();
+
+    // set modal width, padding and margin-left
+    modal.style.width = params.width + 'px';
+    modal.style.padding = params.padding + 'px';
+    modal.style.marginLeft = -params.width / 2 + 'px';
+    modal.style.background = params.background;
+
+    // add dynamic media query css
+    var head = document.getElementsByTagName('head')[0];
+    var cssNode = document.createElement('style');
+    cssNode.type = 'text/css';
+    cssNode.id = mediaqueryId;
+    var margin = 5; // %
+    var mediaQueryMaxWidth = params.width + parseInt(params.width * (margin/100) * 2, 10);
+    cssNode.innerHTML =
+      '@media screen and (max-width: ' + mediaQueryMaxWidth + 'px) {' +
+        '.' + swalClasses.modal + ' {' +
+          'width: auto !important;' +
+          'left: ' + margin + '% !important;' +
+          'right: ' + margin + '% !important;' +
+          'margin-left: 0 !important;' +
+        '}' +
+      '}';
+    head.appendChild(cssNode);
+
+    var $title = modal.querySelector('h2');
+    var $content = modal.querySelector('.' + swalClasses.content);
+    var $confirmBtn = modal.querySelector('button.' + swalClasses.confirm);
+    var $cancelBtn = modal.querySelector('button.' + swalClasses.cancel);
+    var $spacer = modal.querySelector('.' + swalClasses.spacer);
+    var $closeButton = modal.querySelector('.' + swalClasses.close);
+
+    // Title
+    $title.innerHTML = params.title.split('\n').join('<br>');
+
+    // Content
+    if (params.text || params.html) {
+      if (typeof params.html === 'object') {
+        $content.innerHTML = '';
+        if (0 in params.html) {
+          for (i = 0; i in params.html; i++) {
+            $content.appendChild(params.html[i]);
+          }
+        } else {
+          $content.appendChild(params.html);
+        }
+      } else {
+        $content.innerHTML = params.html || (params.text.split('\n').join('<br>'));
+      }
+      show($content);
+    } else {
+      hide($content);
+    }
+
+    // Close button
+    if (params.showCloseButton) {
+      show($closeButton);
+    } else {
+      hide($closeButton);
+    }
+
+    // Custom Class
+    modal.className = swalClasses.modal;
+    if (params.customClass) {
+      addClass(modal, params.customClass);
+    }
+
+    // Icon
+    hide(modal.querySelectorAll('.' + swalClasses.icon));
+    if (params.type) {
+      var validType = false;
+      for (var iconType in iconTypes) {
+        if (params.type === iconType) {
+          validType = true;
+          break;
+        }
+      }
+      if (!validType) {
+        console.error('Unknown alert type: ' + params.type);
+        return false;
+      }
+      var $icon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes[params.type]);
+      show($icon);
+
+      // Animate icon
+      switch (params.type) {
+        case 'success':
+          addClass($icon, 'animate');
+          addClass($icon.querySelector('.tip'), 'animate-success-tip');
+          addClass($icon.querySelector('.long'), 'animate-success-long');
+          break;
+        case 'error':
+          addClass($icon, 'animate-error-icon');
+          addClass($icon.querySelector('.x-mark'), 'animate-x-mark');
+          break;
+        case 'warning':
+          addClass($icon, 'pulse-warning');
+          break;
+        default:
+          break;
+      }
+
+    }
+
+    // Custom image
+    var $customImage = modal.querySelector('.' + swalClasses.image);
+    if (params.imageUrl) {
+      $customImage.setAttribute('src', params.imageUrl);
+      show($customImage);
+
+      if (params.imageWidth) {
+        $customImage.setAttribute('width', params.imageWidth);
+      }
+
+      if (params.imageHeight) {
+        $customImage.setAttribute('height', params.imageHeight);
+      }
+
+      if (params.imageClass) {
+        addClass($customImage, params.imageClass);
+      }
+    } else {
+      hide($customImage);
+    }
+
+    // input, select
+    var inputTypes = ['input', 'select', 'radio', 'checkbox', 'textarea'];
+    var input;
+    for (i = 0; i < inputTypes.length; i++) {
+      var inputClass = swalClasses[inputTypes[i]];
+      input = getChildByClass(modal, inputClass);
+
+      // set attributes
+      while (input.attributes.length > 0) {
+        input.removeAttribute(input.attributes[0].name);
+      }
+      for (var attr in params.inputAttributes) {
+        input.setAttribute(attr, params.inputAttributes[attr]);
+      }
+
+      // set class
+      input.className = inputClass;
+      if (params.inputClass) {
+        addClass(input, params.inputClass);
+      }
+
+      _hide(input);
+    }
+    switch (params.input) {
+      case 'text':
+      case 'email':
+      case 'password':
+        input = getChildByClass(modal, swalClasses.input);
+        input.value = params.inputValue;
+        input.placeholder = params.inputPlaceholder;
+        input.type = params.input;
+        _show(input);
+        break;
+      case 'select':
+        var select = getChildByClass(modal, swalClasses.select);
+        select.innerHTML = '';
+        if (params.inputPlaceholder) {
+          var placeholder = document.createElement('option');
+          placeholder.innerHTML = params.inputPlaceholder;
+          placeholder.value = '';
+          placeholder.disabled = true;
+          placeholder.selected = true;
+          select.appendChild(placeholder);
+        }
+        for (var optionValue in params.inputOptions) {
+          var option = document.createElement('option');
+          option.value = optionValue;
+          option.innerHTML = params.inputOptions[optionValue];
+          if (params.inputValue === optionValue) {
+            option.selected = true;
+          }
+          select.appendChild(option);
+        }
+        _show(select);
+        break;
+      case 'radio':
+        var radio = getChildByClass(modal, swalClasses.radio);
+        radio.innerHTML = '';
+        for (var radioValue in params.inputOptions) {
+          var id = 1;
+          var radioInput = document.createElement('input');
+          var radioLabel = document.createElement('label');
+          var radioLabelSpan = document.createElement('span');
+          radioInput.type = 'radio';
+          radioInput.name = swalClasses.radio;
+          radioInput.value = radioValue;
+          radioInput.id = swalClasses.radio + '-' + (id++);
+          if (params.inputValue === radioValue) {
+            radioInput.checked = true;
+          }
+          radioLabelSpan.innerHTML = params.inputOptions[radioValue];
+          radioLabel.appendChild(radioInput);
+          radioLabel.appendChild(radioLabelSpan);
+          radioLabel.for = radioInput.id;
+          radio.appendChild(radioLabel);
+        }
+        _show(radio);
+        break;
+      case 'checkbox':
+        var checkbox = getChildByClass(modal, swalClasses.checkbox);
+        var checkboxInput = modal.querySelector('#' + swalClasses.checkbox);
+        checkboxInput.value = 1;
+        checkboxInput.checked = Boolean(params.inputValue);
+        var label = checkbox.getElementsByTagName('span');
+        if (label.length) {
+          checkbox.removeChild(label[0]);
+        }
+        label = document.createElement('span');
+        label.innerHTML = params.inputPlaceholder;
+        checkbox.appendChild(label);
+        _show(checkbox);
+        break;
+      case 'textarea':
+        var textarea = getChildByClass(modal, swalClasses.textarea);
+        textarea.value = params.inputValue;
+        textarea.placeholder = params.inputPlaceholder;
+        _show(textarea);
+        break;
+      case null:
+        break;
+      default:
+        console.error('Unexpected type of input! Expected "text" or "email" or "password", "select", "checkbox" or "textarea", got ' + typeof arguments[0]);
+        break;
+    }
+
+    // Cancel button
+    if (params.showCancelButton) {
+      $cancelBtn.style.display = 'inline-block';
+    } else {
+      hide($cancelBtn);
+    }
+
+    // Confirm button
+    if (params.showConfirmButton) {
+      removeStyleProperty($confirmBtn, 'display');
+    } else {
+      hide($confirmBtn);
+    }
+
+    // Buttons spacer
+    if (!params.showConfirmButton && !params.showCancelButton) {
+      hide($spacer);
+    } else {
+      show($spacer);
+    }
+
+    // Edit text on cancel and confirm buttons
+    $confirmBtn.innerHTML = params.confirmButtonText;
+    $cancelBtn.innerHTML = params.cancelButtonText;
+
+    // Set buttons to selected background colors
+    if (params.buttonsStyling) {
+      $confirmBtn.style.backgroundColor = params.confirmButtonColor;
+      $cancelBtn.style.backgroundColor = params.cancelButtonColor;
+    }
+
+    // Add buttons custom classes
+    $confirmBtn.className = swalClasses.confirm;
+    addClass($confirmBtn, params.confirmButtonClass);
+    $cancelBtn.className = swalClasses.cancel;
+    addClass($cancelBtn, params.cancelButtonClass);
+
+    // Buttons styling
+    if (params.buttonsStyling) {
+      addClass($confirmBtn, 'styled');
+      addClass($cancelBtn, 'styled');
+    } else {
+      removeClass($confirmBtn, 'styled');
+      removeClass($cancelBtn, 'styled');
+
+      $confirmBtn.style.backgroundColor = $confirmBtn.style.borderLeftColor = $confirmBtn.style.borderRightColor = '';
+      $cancelBtn.style.backgroundColor = $cancelBtn.style.borderLeftColor = $cancelBtn.style.borderRightColor = '';
+    }
+
+    // CSS animation
+    if (params.animation === true) {
+      removeClass(modal, 'no-animation');
+    } else {
+      addClass(modal, 'no-animation');
+    }
+  };
+
+  /*
+   * Animations
+   */
+  var openModal = function(animation) {
+    var modal = getModal();
+    if (animation) {
+      fadeIn(getOverlay(), 10);
+      addClass(modal, 'show-swal2');
+      removeClass(modal, 'hide-swal2');
+    } else {
+      show(getOverlay());
+    }
+    show(modal);
+
+    states.previousActiveElement = document.activeElement;
+
+    addClass(modal, 'visible');
+  };
+
+  /*
+   * Set 'margin-top'-property on modal based on its computed height
+   */
+  var fixVerticalPosition = function() {
+    var modal = getModal();
+
+    modal.style.marginTop = getTopMargin(getModal());
+  };
+
+  function modalDependant() {
+
+    if (arguments[0] === undefined) {
+      console.error('sweetAlert2 expects at least 1 attribute!');
+      return false;
+    }
+
+    var params = extend({}, defaultParams);
+
+    switch (typeof arguments[0]) {
+
+      case 'string':
+        params.title = arguments[0];
+        params.text  = arguments[1] || '';
+        params.type  = arguments[2] || '';
+
+        break;
+
+      case 'object':
+        extend(params, arguments[0]);
+        params.extraParams = arguments[0].extraParams;
+
+        if (params.input === 'email' && params.inputValidator === null) {
+          params.inputValidator = function(email) {
+            return new Promise(function(resolve, reject) {
+              var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+              if (emailRegex.test(email)) {
+                resolve();
+              } else {
+                reject('Invalid email address');
+              }
+            });
+          };
+        }
+
+        break;
+
+      default:
+        console.error('Unexpected type of argument! Expected "string" or "object", got ' + typeof arguments[0]);
+        return false;
+
+    }
+
+    setParameters(params);
+    fixVerticalPosition();
+    openModal(params.animation);
+
+    // Modal interactions
+    var modal = getModal();
+
+    return new Promise(function(resolve) {
+      // Close on timer
+      if (params.timer) {
+        modal.timeout = setTimeout(function() {
+          sweetAlert.closeModal();
+          resolve(undefined);
+        }, params.timer);
+      }
+
+      // input/select autofocus
+      var getInput = function() {
+        switch (params.input) {
+          case 'select':
+            return getChildByClass(modal, swalClasses.select);
+          case 'radio':
+            return modal.querySelector('.' + swalClasses.radio + ' input:checked') ||
+              modal.querySelector('.' + swalClasses.radio + ' input:first-child');
+          case 'checkbox':
+            return modal.querySelector('#' + swalClasses.checkbox);
+          case 'textarea':
+            return getChildByClass(modal, swalClasses.textarea);
+          default:
+            return getChildByClass(modal, swalClasses.input);
+        }
+      };
+      var getInputValue = function() {
+        var input = getInput();
+        switch (params.input) {
+          case 'checkbox':
+            return input.checked ? 1 : 0;
+          case 'radio':
+            return input.checked ? input.value : null;
+          default:
+            return params.inputAutoTrim? input.value.trim() : input.value;
+        }
+      };
+
+      if (params.input) {
+        setTimeout(function() {
+          focusInput(getInput());
+        }, 0);
+      }
+
+      var confirm = function(value) {
+        if (params.preConfirm) {
+          params.preConfirm(value, params.extraParams).then(function(preConfirmValue) {
+            resolve(preConfirmValue || value);
+            sweetAlert.closeModal();
+          });
+        } else {
+          resolve(value);
+          sweetAlert.closeModal();
+        }
+      };
+
+      // Mouse interactions
+      var onButtonEvent = function(event) {
+        var e = event || window.event;
+        var target = e.target || e.srcElement;
+        var targetedConfirm = hasClass(target, swalClasses.confirm);
+        var targetedCancel  = hasClass(target, swalClasses.cancel);
+        var modalIsVisible  = hasClass(modal, 'visible');
+
+        switch (e.type) {
+          case 'mouseover':
+          case 'mouseup':
+          case 'focus':
+            if (params.buttonsStyling) {
+              if (targetedConfirm) {
+                target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.1);
+              } else if (targetedCancel) {
+                target.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.1);
+              }
+            }
+            break;
+          case 'mouseout':
+          case 'blur':
+            if (params.buttonsStyling) {
+              if (targetedConfirm) {
+                target.style.backgroundColor = params.confirmButtonColor;
+              } else if (targetedCancel) {
+                target.style.backgroundColor = params.cancelButtonColor;
+              }
+            }
+            break;
+          case 'mousedown':
+            if (params.buttonsStyling) {
+              if (targetedConfirm) {
+                target.style.backgroundColor = colorLuminance(params.confirmButtonColor, -0.2);
+              } else if (targetedCancel) {
+                target.style.backgroundColor = colorLuminance(params.cancelButtonColor, -0.2);
+              }
+            }
+            break;
+          case 'click':
+            // Clicked 'confirm'
+            if (targetedConfirm && modalIsVisible) {
+              if (params.input) {
+                var inputValue = getInputValue();
+
+                if (params.inputValidator) {
+                  sweetAlert.disableInput();
+                  params.inputValidator(inputValue, params.extraParams).then(
+                    function() {
+                      sweetAlert.enableInput();
+                      confirm(inputValue);
+                    },
+                    function(error) {
+                      sweetAlert.enableInput();
+                      sweetAlert.showValidationError(error);
+                    }
+                  );
+                } else {
+                  confirm(inputValue);
+                }
+
+              } else {
+                confirm(true);
+              }
+
+            // Clicked 'cancel'
+            } else if (targetedCancel && modalIsVisible) {
+
+              sweetAlert.closeModal();
+              resolve(false);
+            }
+
+            break;
+          default:
+        }
+      };
+
+      var $buttons = modal.querySelectorAll('button');
+      var i;
+      for (i = 0; i < $buttons.length; i++) {
+        $buttons[i].onclick     = onButtonEvent;
+        $buttons[i].onmouseover = onButtonEvent;
+        $buttons[i].onmouseout  = onButtonEvent;
+        $buttons[i].onmousedown = onButtonEvent;
+      }
+
+      // Remember the current document.onclick event.
+      states.previousDocumentClick = document.onclick;
+      document.onclick = function(event) {
+        var e = event || window.event;
+        var target = e.target || e.srcElement;
+
+        if (hasClass(target, swalClasses.close) || (target === getOverlay() && params.allowOutsideClick)) {
+          sweetAlert.closeModal();
+          resolve(undefined);
+        }
+      };
+
+      // Keyboard interactions
+      var $confirmButton = modal.querySelector('button.' + swalClasses.confirm);
+      var $cancelButton = modal.querySelector('button.' + swalClasses.cancel);
+      var $modalElements = [$confirmButton, $cancelButton].concat(Array.prototype.slice.call(
+        modal.querySelectorAll('button:not([class^=' + swalPrefix + ']), input:not([type=hidden]), textarea, select')
+      ));
+      for (i = 0; i < $modalElements.length; i++) {
+        $modalElements[i].onfocus = onButtonEvent;
+        $modalElements[i].onblur = onButtonEvent;
+      }
+
+      // Reverse buttons if neede d
+      if (params.reverseButtons) {
+        $confirmButton.parentNode.insertBefore($cancelButton, $confirmButton);
+      }
+
+      function setFocus(index, increment) {
+        // search for visible elements and select the next possible match
+        for (var i = 0; i < $modalElements.length; i++) {
+          index = index + increment;
+
+          // rollover to first item
+          if (index === $modalElements.length) {
+            index = 0;
+
+          // go to last item
+          } else if (index === -1) {
+            index = $modalElements.length - 1;
+          }
+
+          // determine if element is visible, the following is borrowed from jqeury $(elem).is(':visible') implementation
+          if (
+            $modalElements[index].offsetWidth ||
+            $modalElements[index].offsetHeight ||
+            $modalElements[index].getClientRects().length
+          ) {
+            $modalElements[index].focus();
+            return;
+          }
+        }
+      }
+
+      // Focus the first element (input or button)
+      setFocus(-1, 1);
+
+      function handleKeyDown(event) {
+        var e = event || window.event;
+        var keyCode = e.keyCode || e.which;
+
+        if ([9, 13, 32, 27].indexOf(keyCode) === -1) {
+          // Don't do work on keys we don't care about.
+          return;
+        }
+
+        var $targetElement = e.target || e.srcElement;
+
+        var btnIndex = -1; // Find the button - note, this is a nodelist, not an array.
+        for (var i = 0; i < $modalElements.length; i++) {
+          if ($targetElement === $modalElements[i]) {
+            btnIndex = i;
+            break;
+          }
+        }
+
+        // TAB
+        if (keyCode === 9) {
+          if (!e.shiftKey) {
+            // Cycle to the next button
+            setFocus(btnIndex, 1);
+          } else {
+            // Cycle to the prev button
+            setFocus(btnIndex, -1);
+          }
+
+          stopEventPropagation(e);
+
+        } else {
+          if (keyCode === 13 || keyCode === 32) {
+            if (btnIndex === -1) {
+              // ENTER/SPACE clicked outside of a button.
+              fireClick($confirmButton, e);
+            }
+          } else if (keyCode === 27 && params.allowEscapeKey === true) {
+            sweetAlert.closeModal();
+            resolve(undefined);
+          }
+        }
+      }
+
+      states.previousWindowKeyDown = window.onkeydown;
+      window.onkeydown = handleKeyDown;
+
+      // Loading state
+      if (params.buttonsStyling) {
+        $confirmButton.style.borderLeftColor = params.confirmButtonColor;
+        $confirmButton.style.borderRightColor = params.confirmButtonColor;
+      }
+
+      sweetAlert.enableLoading = function() {
+        addClass($confirmButton, 'loading');
+        addClass(modal, 'loading');
+        $cancelButton.disabled = true;
+      };
+
+      sweetAlert.disableLoading = function() {
+        removeClass($confirmButton, 'loading');
+        removeClass(modal, 'loading');
+        $cancelButton.disabled = false;
+      };
+
+      sweetAlert.enableButtons = function() {
+        $confirmButton.disabled = false;
+        $cancelButton.disabled = false;
+      };
+
+      sweetAlert.disableButtons = function() {
+        $confirmButton.disabled = true;
+        $cancelButton.disabled = true;
+      };
+
+      sweetAlert.enableInput = function() {
+        var input = getInput();
+        if (input.type === 'radio') {
+          var radiosContainer = input.parentNode.parentNode;
+          var radios = radiosContainer.querySelectorAll('input');
+          for (var i = 0; i < radios.length; i++) {
+            radios[i].disabled = false;
+          }
+        } else {
+          input.disabled = false;
+        }
+      };
+
+      sweetAlert.disableInput = function() {
+        var input = getInput();
+        if (input.type === 'radio') {
+          var radiosContainer = input.parentNode.parentNode;
+          var radios = radiosContainer.querySelectorAll('input');
+          for (var i = 0; i < radios.length; i++) {
+            radios[i].disabled = true;
+          }
+        } else {
+          input.disabled = true;
+        }
+      };
+
+      sweetAlert.showValidationError = function(error) {
+        var $validationError = modal.querySelector('.' + swalClasses.validationerror);
+        $validationError.innerHTML = error;
+        show($validationError);
+
+        var input = getInput();
+        focusInput(input);
+        addClass(input, 'error');
+      };
+
+      sweetAlert.resetValidationError = function() {
+        var $validationError = modal.querySelector('.' + swalClasses.validationerror);
+        hide($validationError);
+
+        var input = getInput();
+        removeClass(input, 'error');
+      };
+
+      sweetAlert.enableButtons();
+      sweetAlert.disableLoading();
+      sweetAlert.resetValidationError();
+    });
+  }
+
+  // SweetAlert function
+  function sweetAlert() {
+    // Copy arguments to the local args variable
+    var args = arguments;
+    var modal = getModal();
+
+    if (modal === null) {
+      sweetAlert.init();
+      modal = getModal();
+    }
+
+    if (hasClass(modal, 'visible')) {
+      resetPrevState();
+    }
+
+    return modalDependant.apply(this, args);
+  }
+
+  /*
+   * Global function to close sweetAlert
+   */
+  sweetAlert.close = sweetAlert.closeModal = function() {
+    var modal = getModal();
+    removeClass(modal, 'show-swal2');
+    addClass(modal, 'hide-swal2');
+    removeClass(modal, 'visible');
+
+    // Reset icon animations
+    var $successIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.success);
+    removeClass($successIcon, 'animate');
+    removeClass($successIcon.querySelector('.tip'), 'animate-success-tip');
+    removeClass($successIcon.querySelector('.long'), 'animate-success-long');
+
+    var $errorIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.error);
+    removeClass($errorIcon, 'animate-error-icon');
+    removeClass($errorIcon.querySelector('.x-mark'), 'animate-x-mark');
+
+    var $warningIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.warning);
+    removeClass($warningIcon, 'pulse-warning');
+
+    resetPrevState();
+
+    if (animationEndEvent && !hasClass(modal, 'no-animation')) {
+      modal.addEventListener(animationEndEvent, function swalCloseEventFinished() {
+        modal.removeEventListener(animationEndEvent, swalCloseEventFinished);
+        if (hasClass(modal, 'hide-swal2')) {
+          _hide(modal);
+          fadeOut(getOverlay(), 0);
+        }
+      });
+    } else {
+      _hide(modal);
+      _hide(getOverlay());
+    }
+  };
+
+  /*
+   * Global function to click 'Confirm' button
+   */
+  sweetAlert.clickConfirm = function() {
+    var modal = getModal();
+    var $confirmButton = modal.querySelector('button.' + swalClasses.confirm);
+    $confirmButton.click();
+  };
+
+  /*
+   * Global function to click 'Cancel' button
+   */
+  sweetAlert.clickCancel = function() {
+    var modal = getModal();
+    var $cancelButton = modal.querySelector('button.' + swalClasses.cancel);
+    $cancelButton.click();
+  };
+
+  /*
+   * Add modal + overlay to DOM
+   */
+  sweetAlert.init = function() {
+    if (typeof document === 'undefined') {
+      console.log('SweetAlert2 requires document to initialize');
+      return;
+    } else if (document.getElementsByClassName(swalClasses.container).length) {
+      return;
+    }
+
+    var sweetWrap = document.createElement('div');
+    sweetWrap.className = swalClasses.container;
+
+    sweetWrap.innerHTML = sweetHTML;
+
+    document.body.appendChild(sweetWrap);
+
+    var modal = getModal();
+    var $input = getChildByClass(modal, swalClasses.input);
+    var $select = getChildByClass(modal, swalClasses.select);
+    var $checkbox = modal.querySelector('#' + swalClasses.checkbox);
+    var $textarea = getChildByClass(modal, swalClasses.textarea);
+
+    $input.oninput = function() {
+      sweetAlert.resetValidationError();
+    };
+
+    $input.onkeyup = function(event) {
+      event.stopPropagation();
+      if (event.keyCode === 13) {
+        sweetAlert.clickConfirm();
+      }
+    };
+
+    $select.onchange = function() {
+      sweetAlert.resetValidationError();
+    };
+
+    $checkbox.onchange = function() {
+      sweetAlert.resetValidationError();
+    };
+
+    $textarea.onchange = function() {
+      sweetAlert.resetValidationError();
+    };
+  };
+
+  /**
+   * Set default params for each popup
+   * @param {Object} userParams
+   */
+  sweetAlert.setDefaults = function(userParams) {
+    if (!userParams) {
+      throw new Error('userParams is required');
+    }
+    if (typeof userParams !== 'object') {
+      throw new Error('userParams has to be a object');
+    }
+
+    extend(defaultParams, userParams);
+  };
+
+  sweetAlert.version = '3.2.3';
+
+  window.sweetAlert = window.swal = sweetAlert;
+
+  /*
+  * If library is injected after page has loaded
+  */
+  (function() {
+    if (document.readyState === 'complete' || document.readyState === 'interactive' && document.body) {
+      sweetAlert.init();
+    } else {
+      document.addEventListener('DOMContentLoaded', function onDomContentLoaded() {
+        document.removeEventListener('DOMContentLoaded', onDomContentLoaded, false);
+        sweetAlert.init();
+      }, false);
+    }
+  })();
+
+  return sweetAlert;
+
+}));
